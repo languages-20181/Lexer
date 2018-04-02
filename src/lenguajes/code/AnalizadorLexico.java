@@ -99,12 +99,12 @@ public class AnalizadorLexico {
 			
 			if (operadoresEspecialesDobles.containsKey(caracterDoble)) {
 				
-				indiceInicial = separarOperadorEspecialDoble(linea, indiceInicial, i, caracterDoble);
+				indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, caracterDoble, 2);
 				i++;
 				
 			}else if (operadoresEspeciales.containsKey("" + caracterActual )) {
 				
-				indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, caracterActual);
+				indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, "" +caracterActual, 1);
 	
 			}
 		}
@@ -130,27 +130,17 @@ public class AnalizadorLexico {
 		
 	}
 
-	private static int separarOperadorEspecial(String linea, int indiceInicial, int i, char caracterActual) {
+	private static int separarOperadorEspecial(String linea, int indiceInicial, int i, String caracterActual, int aumento) {
+		
 		AumentarColumna();
 		seleccionarToken(linea.substring(indiceInicial,i));
-		indiceInicial = indiceInicial + i + 1;
+		indiceInicial = indiceInicial + i + aumento;
 		AumentarColumna();
-		imprimirOperadorEspecial("" + caracterActual);
+		imprimirOperadorEspecial(caracterActual);
 		return indiceInicial;
+		
 	}
 
-	private static int separarOperadorEspecialDoble(String linea, int indiceInicial, int i, String caracterDoble) {
-		AumentarColumna();
-		seleccionarToken(linea.substring(indiceInicial,i));
-		indiceInicial = indiceInicial + i + 2;
-		AumentarColumna();
-		imprimirOperadorEspecial(caracterDoble);
-		return indiceInicial;
-	}
-	
-	
-	
-	
 	private static void imprimirOperadorEspecial(String operadorEspecial) {
 		if (operadoresEspecialesDobles.containsKey(operadorEspecial)) {
 			
