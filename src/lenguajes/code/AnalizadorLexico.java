@@ -215,26 +215,16 @@ public class AnalizadorLexico {
 
     }
 
-
-
-
-
-
-
-
-
-    private static boolean esComentario(String substring) {
-		if (substring.startsWith("\"") && substring.endsWith("\""))
-            return true;
-
+    public static boolean esComentario(String substring) {
+		/* TODO
+		Comentarios
+        */
 		return false;
     }
 
-    private static boolean esCadena(String substring) {
-		/* TODO Cadena
-		 * debe diferenciar cuando es cadena(que tiene el caracter " al inicio y al final) o cuando es un error
-		 */
-
+    public static boolean esCadena(String substring) {
+        if (substring.startsWith("\"") && substring.endsWith("\""))
+            return true;
 
         return false;
     }

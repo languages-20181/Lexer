@@ -35,4 +35,12 @@ class AnalizadorLexicoTest {
 		assertEquals("otravariable", AnalizadorLexico.manejadorTexto("variable!=otravariable"));
 		
 	}
+
+	@Test
+	void testCadenas() {
+		assertEquals(true, AnalizadorLexico.esCadena("\"abc\""));
+		assertEquals(false, AnalizadorLexico.esCadena("abc\""));
+		assertEquals(false, AnalizadorLexico.esCadena("\"abc"));
+		assertEquals(false, AnalizadorLexico.esCadena("abc"));
+	}
 }
