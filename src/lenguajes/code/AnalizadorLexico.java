@@ -12,6 +12,7 @@ public class AnalizadorLexico {
 	public AnalizadorLexico(String archivoEntrada) {
 		
 		operadoresEspeciales= new HashMap<String,String>();
+		operadoresEspecialesDobles= new HashMap<String,String>();
 		columna = 0;
 		fila = 0;
 		
@@ -45,14 +46,8 @@ public class AnalizadorLexico {
         operadoresEspeciales.put(")","token_par_der");
         operadoresEspeciales.put(">","token_mayor");
         operadoresEspeciales.put("<","token_menor");
-        operadoresEspeciales.put(">=","token_mayor_igual");
-        operadoresEspeciales.put("<=","token_menor_igual");
         operadoresEspeciales.put("in","token_in");
-        operadoresEspeciales.put("==","token_igual_num");
 //      operadoresEspeciales.put(".","token_point"); No se considera porque se analiza en el Switch (seleccionarToken)
-        operadoresEspeciales.put("!=","token_diff_num");
-        operadoresEspeciales.put("&&","token_and");
-        operadoresEspeciales.put("||","token_or");
         operadoresEspeciales.put("!","token_not");
         operadoresEspeciales.put("+","token_mas");
         operadoresEspeciales.put("-","token_menos");
@@ -60,6 +55,13 @@ public class AnalizadorLexico {
         operadoresEspeciales.put("/","token_div");
         operadoresEspeciales.put("%","token_mod");
         operadoresEspeciales.put("^","token_pot");
+        
+        operadoresEspecialesDobles.put(">=","token_mayor_igual");
+        operadoresEspecialesDobles.put("<=","token_menor_igual");
+        operadoresEspecialesDobles.put("!=","token_diff_num");
+        operadoresEspecialesDobles.put("&&","token_and");
+        operadoresEspecialesDobles.put("||","token_or");
+        operadoresEspecialesDobles.put("==","token_igual_num");
 		
 	}
 	
@@ -91,15 +93,19 @@ public class AnalizadorLexico {
 		
 		int indiceInicial = 0;
 		for (int i = 0; i < linea.length(); i++) {
+			
 			char caracterActual = linea.charAt(i);
-			if (operadoresEspeciales.containsKey("" + caracterActual )) {
+			String caracterDoble = iniciarCaracterDoble(linea, i, caracterActual);
+			
+			if (operadoresEspecialesDobles.containsKey(caracterDoble)) {
 				
-				AumentarColumna();
-				seleccionarToken(linea.substring(indiceInicial,i));
-				indiceInicial = indiceInicial + i + 1;
-				AumentarColumna();
-				imprimirOperadorEspecial("" + caracterActual);
+				indiceInicial = separarOperadorEspecialDoble(linea, indiceInicial, i, caracterDoble);
+				i++;
 				
+			}else if (operadoresEspeciales.containsKey("" + caracterActual )) {
+				
+				indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, caracterActual);
+	
 			}
 		}
 		if(indiceInicial > linea.length()) {
@@ -109,15 +115,58 @@ public class AnalizadorLexico {
 		seleccionarToken(linea.substring(indiceInicial,linea.length()));
 		return linea.substring(indiceInicial,linea.length());
 	}
+
+	private static String iniciarCaracterDoble(String linea, int i, char caracterActual) {
+		
+		String caracterDoble = "" + caracterActual;
+		
+		if (i < linea.length() - 1) {
+			
+			caracterDoble ="" + caracterActual + linea.charAt(i+1);
+		
+		}
+		
+		return caracterDoble;
+		
+	}
+
+	private static int separarOperadorEspecial(String linea, int indiceInicial, int i, char caracterActual) {
+		AumentarColumna();
+		seleccionarToken(linea.substring(indiceInicial,i));
+		indiceInicial = indiceInicial + i + 1;
+		AumentarColumna();
+		imprimirOperadorEspecial("" + caracterActual);
+		return indiceInicial;
+	}
+
+	private static int separarOperadorEspecialDoble(String linea, int indiceInicial, int i, String caracterDoble) {
+		AumentarColumna();
+		seleccionarToken(linea.substring(indiceInicial,i));
+		indiceInicial = indiceInicial + i + 2;
+		AumentarColumna();
+		imprimirOperadorEspecial(caracterDoble);
+		return indiceInicial;
+	}
 	
 	
 	
 	
 	private static void imprimirOperadorEspecial(String operadorEspecial) {
-		System.out.println("<" +
-				operadoresEspeciales.get(operadorEspecial) +
-				"," + Integer.toString(fila) +
-				"," + Integer.toString(columna) +">");
+		if (operadoresEspecialesDobles.containsKey(operadorEspecial)) {
+			
+			System.out.println("<" +
+					operadoresEspecialesDobles.get(operadorEspecial) +
+					"," + Integer.toString(fila) +
+					"," + Integer.toString(columna) +">");
+			
+		}else {
+			
+			System.out.println("<" +
+					operadoresEspeciales.get(operadorEspecial) +
+					"," + Integer.toString(fila) +
+					"," + Integer.toString(columna) +">");
+			
+		}
 	}
 
 	private static void AumentarColumna() {
@@ -219,7 +268,7 @@ public class AnalizadorLexico {
 
 
 
-
+	private static HashMap <String, String> operadoresEspecialesDobles;
 	private static HashMap <String,String> operadoresEspeciales;
 	private static int columna;
 	private static int fila;

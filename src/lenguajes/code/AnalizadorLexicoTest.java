@@ -20,12 +20,19 @@ class AnalizadorLexicoTest {
 	void setUp() throws Exception {
 		AnalizadorLexico analizador = new AnalizadorLexico("/home/giovanny/Desktop/prueba.txt");
 	}
-	
 	@Test
 	void testSOperadoresEspeciales() {
 		assertEquals("hola", AnalizadorLexico.manejadorTexto("hola"));
 		assertEquals("ala", AnalizadorLexico.manejadorTexto("hola}ala"));
 		assertEquals("", AnalizadorLexico.manejadorTexto("hola}"));
 		assertEquals("", AnalizadorLexico.manejadorTexto("}["));
+	}
+	
+	@Test
+	void testDosOperadoresEspeciales() {
+		assertEquals("otravariable", AnalizadorLexico.manejadorTexto("variable>=otravariable"));
+		assertEquals("otravariable", AnalizadorLexico.manejadorTexto("variable==otravariable"));
+		assertEquals("otravariable", AnalizadorLexico.manejadorTexto("variable!=otravariable"));
+		
 	}
 }
