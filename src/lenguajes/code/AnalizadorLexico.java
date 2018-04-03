@@ -91,15 +91,15 @@ public class AnalizadorLexico {
 
 
     public static String manejadorTexto (String linea) {
-
+    	String cadenaAEvaluar = new String();
         int indiceInicial = 0;
+        
         for (int i = 0; i < linea.length(); i++) {
 
             char caracterActual = linea.charAt(i);
             String caracterDoble = iniciarCaracterDoble(linea, i, caracterActual);
-
             if (operadoresEspecialesDobles.containsKey(caracterDoble)) {
-
+            	
                 indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, caracterDoble, 2);
                 i++;
 
@@ -116,8 +116,11 @@ public class AnalizadorLexico {
             */
             return "";
         }
-        seleccionarToken(linea.substring(indiceInicial,linea.length()));
-        return linea.substring(indiceInicial,linea.length());
+        cadenaAEvaluar = linea.substring(indiceInicial,linea.length());
+        cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
+        if (!cadenaAEvaluar.isEmpty())
+        	seleccionarToken(cadenaAEvaluar);
+        return cadenaAEvaluar;
     }
 
     private static String iniciarCaracterDoble(String linea, int i, char caracterActual) {
@@ -136,11 +139,17 @@ public class AnalizadorLexico {
 
     private static int separarOperadorEspecial(String linea, int indiceInicial, int i, String caracterActual, int aumento) {
 
-        AumentarColumna();
-        seleccionarToken(linea.substring(indiceInicial,i));
+        aumentarColumna();
+        String cadenaAEvaluar = linea.substring(indiceInicial,i);
+        cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
+        
+        if (!cadenaAEvaluar.isEmpty())
+        	seleccionarToken(cadenaAEvaluar);
+        
         indiceInicial = indiceInicial + i + aumento;
-        AumentarColumna();
+        aumentarColumna();
         imprimirOperadorEspecial(caracterActual);
+        
         return indiceInicial;
 
     }
@@ -162,8 +171,14 @@ public class AnalizadorLexico {
 
         }
     }
+    
+    private static void imprimirError() {
+    	
+    	System.out.println(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
+    	System.exit(0);
+    }
 
-    private static void AumentarColumna() {
+    private static void aumentarColumna() {
 
         columna ++;
 
@@ -195,38 +210,61 @@ public class AnalizadorLexico {
 
         } else if (esCadena(substring)) {
 
-			/*TODO Imprimir token
+			/*	   Imprimir token
 			 * 	   Aumentar Columna
 			 * 	   Se refiere a cadenas como "hola"
 			*/
+        	
+        	imprimirSalida("token_string");
+        	aumentarColumna();
+        	return;
 
         } else if (esComentario(substring)) {
 
-			/*TODO Imprimir token
+			/*	   Imprimir token
 			 * 	   Aumentar Columna
-			*/
+			 *
+			 */ 
+        	imprimirSalida("token_com");
+			aumentarColumna();
+			 return;
 
-        } else {
+        }else {
+    		
+    		imprimirError();
             return;
         }
 
 
         System.out.println("Entro a Seleccionar Token: " + substring);
+		return;
 
+    }
+
+	private static void imprimirSalida(String salida) {
+		 System.out.println("<" +
+				 salida +
+		        "," + Integer.toString(fila) +
+		        "," + Integer.toString(columna) +">");
+	}
+
+    public static boolean esCadena(String substring) {
+    	
+    	if (substring.startsWith("\"") && substring.endsWith("\""))
+            return true;
+    	
+    	else if (substring.charAt(0) != substring.charAt(substring.length()-1))
+    		imprimirError();
+    	
+        return false;
     }
 
     public static boolean esComentario(String substring) {
-		/* TODO
-		Comentarios
-        */
-		return false;
-    }
-
-    public static boolean esCadena(String substring) {
-        if (substring.startsWith("\"") && substring.endsWith("\""))
+    	
+        if (substring.startsWith("#")) 
             return true;
-
-        return false;
+        
+    	return false;
     }
 
     private static boolean esNumero(String substring) {
