@@ -18,8 +18,8 @@
       <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="311" column="31" selection-start-line="311" selection-start-column="31" selection-end-line="311" selection-end-column="31" />
+            <state relative-caret-position="226">
+              <caret line="217" column="21" selection-start-line="217" selection-start-column="21" selection-end-line="217" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,6 +86,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
@@ -110,7 +111,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -201,12 +201,13 @@
       <option name="presentableId" value="Default" />
       <updated>1522806960355</updated>
       <workItem from="1522806967543" duration="1816000" />
-      <workItem from="1522842584270" duration="1681000" />
+      <workItem from="1522842584270" duration="2683000" />
+      <workItem from="1522879783832" duration="1453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3497000" />
+    <option name="totallyTimeSpent" value="5952000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1600" height="872" extended-state="6" />
@@ -249,6 +250,37 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4710">
+          <caret line="314" column="66" lean-forward="true" selection-start-line="314" selection-start-column="66" selection-end-line="314" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexicoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4185">
@@ -310,8 +342,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="311" column="31" selection-start-line="311" selection-start-column="31" selection-end-line="311" selection-end-column="31" />
+        <state relative-caret-position="226">
+          <caret line="217" column="21" selection-start-line="217" selection-start-column="21" selection-end-line="217" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

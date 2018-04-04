@@ -214,23 +214,28 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-        System.out.println("Entro a Seleccionar Token: " + substring);
+       // System.out.println("Entro a Seleccionar Token: " + substring);
 
 
         if (esCadena(substring)) {
-            imprimirSalida("token_string");
+            imprimirSalida("token_cadena");
             aumentarColumna();
             return;
-        } else if (esNumero(substring)) {
+        } else if (esDecimal(substring)) {
 
-            /*TODO Imprimir token
-             * 	   Aumentar Columna
-             */
+            imprimirSalida("token_Double");
+            aumentarColumna();
+            return;
 
+        } else if(esEntero(substring)){
+
+            imprimirSalida("token_Int");
+            aumentarColumna();
+            return;
         } else if (esComentario(substring)) {
 
             /*	   Imprimir token
-             * 	   Aumentar Columna
+
              *
              */
 
@@ -249,16 +254,11 @@ public class AnalizadorLexico {
             aumentarColumna();
             return;
 
-        }
-          else {
+        } else {
 
             imprimirError();
             return;
         }
-
-
-		return;
-
     }
 
 	private static void imprimirSalida(String salida) {
@@ -287,19 +287,40 @@ public class AnalizadorLexico {
     	return false;
     }
 
-    private static boolean esNumero(String substring) {
+    private static boolean esDecimal(String substring) {
 		/* TODO Numero
 		 * Debe manejar errores
 		 * Diferenciar entre doubles y enteros
 		 */
-        return false;
+        try
+        {
+            Double.parseDouble(substring);
+            return true;
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+
+    }
+
+    private static boolean esEntero(String substring) {
+
+        try
+        {
+            Integer.parseInt(substring);
+            return true;
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+
     }
 
     public static String esIdentificador(String substring) {
 
         String str = substring;
-
-
         int i = 0;
         while(i <str.length()) {
             char t = str.charAt(i);
@@ -308,9 +329,8 @@ public class AnalizadorLexico {
                 aux += t;
                 int j = i + 1;
 
-                if ( str.length()==1){
-                   return "id";
-                }
+                if ( str.length()==1) return "id";
+
 
                 while (Character.isLetterOrDigit(str.charAt(j))) {
 
@@ -321,8 +341,6 @@ public class AnalizadorLexico {
                 i = j;
 
                 if (palabraReservada.contains(aux)) return aux;
-
-
                 else return "id";
             }
         }
