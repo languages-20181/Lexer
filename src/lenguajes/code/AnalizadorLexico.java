@@ -214,59 +214,49 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-    /*    System.out.println(substring);
-        System.out.println(esCadena(substring));*/
+        System.out.println("Entro a Seleccionar Token: " + substring);
 
 
-
-        if (esIdentificador(substring)== "id") {
-            imprimirSalida("token_id");
+        if (esCadena(substring)) {
+            imprimirSalida("token_string");
             aumentarColumna();
             return;
+        } else if (esNumero(substring)) {
+
             /*TODO Imprimir token
              * 	   Aumentar Columna
              */
 
-        } else if (esNumero(substring)) {
-
-			/*TODO Imprimir token
-			 * 	   Aumentar Columna
-			*/
-
-        }  else if (esCadena(substring)) {
-			/*	   Imprimir token
-			 * 	   Aumentar Columna
-			 * 	   Se refiere a cadenas como "hola"
-			*/
-
-        	
-        	imprimirSalida("token_string");
-        	aumentarColumna();
-        	return;
-
         } else if (esComentario(substring)) {
 
-			/*	   Imprimir token
-			 * 	   Aumentar Columna
-			 *
-			 */ 
-        	imprimirSalida("token_com");
-			aumentarColumna();
-			 return;
+            /*	   Imprimir token
+             * 	   Aumentar Columna
+             *
+             */
 
-        }  else if (esIdentificador(substring) != "id") {
+            imprimirSalida("token_com");
+            aumentarColumna();
+            return;
 
+        } else if (esIdentificador(substring)== "id") {
+            imprimirSalida("token_id");
+            aumentarColumna();
+            return;
+
+        }
+        else if (esIdentificador(substring) != "id") {
             imprimirSalida("token_" + esIdentificador(substring));
             aumentarColumna();
+            return;
 
-        } else {
-    		
-    		imprimirError();
+        }
+          else {
+
+            imprimirError();
             return;
         }
 
 
-        System.out.println("Entro a Seleccionar Token: " + substring);
 		return;
 
     }
@@ -279,8 +269,8 @@ public class AnalizadorLexico {
 	}
 
     public static boolean esCadena(String substring) {
-    	
-    	if (substring.startsWith("\"") && substring.endsWith("\""))
+
+        if (substring.startsWith("\"") && substring.endsWith("\""))
             return true;
     	
     /*	else if (substring.charAt(0) != substring.charAt(substring.length()-1))
@@ -308,6 +298,8 @@ public class AnalizadorLexico {
     public static String esIdentificador(String substring) {
 
         String str = substring;
+
+
         int i = 0;
         while(i <str.length()) {
             char t = str.charAt(i);
@@ -315,6 +307,11 @@ public class AnalizadorLexico {
                 String aux = "";
                 aux += t;
                 int j = i + 1;
+
+                if ( str.length()==1){
+                   return "id";
+                }
+
                 while (Character.isLetterOrDigit(str.charAt(j))) {
 
                     aux += str.charAt(j);
@@ -332,11 +329,6 @@ public class AnalizadorLexico {
 
         return "id";
     }
-
-
-
-
-
 
 
 
