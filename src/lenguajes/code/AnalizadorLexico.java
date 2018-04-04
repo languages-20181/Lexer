@@ -165,7 +165,7 @@ public class AnalizadorLexico {
         	seleccionarToken(cadenaAEvaluar);
         
         indiceInicial = indiceInicial + i + aumento;
-        aumentarColumna();
+
         imprimirOperadorEspecial(caracterActual);
         
         return indiceInicial;
@@ -244,7 +244,7 @@ public class AnalizadorLexico {
             return;
 
         } else if (esIdentificador(substring)== "id") {
-            imprimirSalida("token_id");
+            imprimirSalida("id,"+substring);
             aumentarColumna();
             return;
 

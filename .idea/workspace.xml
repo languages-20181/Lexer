@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63daf00a-4082-4335-8783-34999463ad2c" name="Default" comment="" />
+    <list default="true" id="63daf00a-4082-4335-8783-34999463ad2c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1314">
-              <caret line="298" column="28" selection-start-line="298" selection-start-column="28" selection-end-line="298" selection-end-column="28" />
+            <state relative-caret-position="279">
+              <caret line="167" column="6" selection-start-line="167" selection-start-column="6" selection-end-line="167" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="prueba.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="prueba.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -204,12 +206,12 @@
       <updated>1522806960355</updated>
       <workItem from="1522806967543" duration="1816000" />
       <workItem from="1522842584270" duration="2683000" />
-      <workItem from="1522879783832" duration="2834000" />
+      <workItem from="1522879783832" duration="3082000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7333000" />
+    <option name="totallyTimeSpent" value="7581000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1600" height="872" extended-state="6" />
@@ -225,11 +227,11 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2410596" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2410596" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -328,6 +330,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/App.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -337,18 +346,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1314">
-          <caret line="298" column="28" selection-start-line="298" selection-start-column="28" selection-end-line="298" selection-end-column="28" />
+        <state relative-caret-position="279">
+          <caret line="167" column="6" selection-start-line="167" selection-start-column="6" selection-end-line="167" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
