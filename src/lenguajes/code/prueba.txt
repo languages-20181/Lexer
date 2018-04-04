@@ -1,4 +1,7 @@
-1
-1.2
-5
-for 5
+log("prueba del if")
+a= false
+b = true
+if a && b {
+  log ("El resultado es verdadero")
+}
+log("El valor es falso")

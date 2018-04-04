@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63daf00a-4082-4335-8783-34999463ad2c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lenguajes/code/prueba.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/lenguajes/code/prueba.txt" afterDir="false" />
-    </list>
+    <list default="true" id="63daf00a-4082-4335-8783-34999463ad2c" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +12,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1314">
@@ -45,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="prueba.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="prueba.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="1" selection-start-column="1" selection-end-column="1" />
+            <state relative-caret-position="60">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -207,12 +204,12 @@
       <updated>1522806960355</updated>
       <workItem from="1522806967543" duration="1816000" />
       <workItem from="1522842584270" duration="2683000" />
-      <workItem from="1522879783832" duration="2473000" />
+      <workItem from="1522879783832" duration="2834000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6972000" />
+    <option name="totallyTimeSpent" value="7333000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1600" height="872" extended-state="6" />
@@ -228,11 +225,11 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2410596" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2410596" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -331,13 +328,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/App.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -352,6 +342,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>

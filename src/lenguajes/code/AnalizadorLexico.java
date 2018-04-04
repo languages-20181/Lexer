@@ -214,7 +214,7 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-       System.out.println("Entro a Seleccionar Token: " + substring);
+    /*   System.out.println("Entro a Seleccionar Token: " + substring);*/
 
 
         if (esCadena(substring)) {
@@ -250,7 +250,7 @@ public class AnalizadorLexico {
 
         }
         else if (esIdentificador(substring) != "id") {
-            imprimirSalida("token_" + esIdentificador(substring));
+            imprimirSalida(esIdentificador(substring));
             aumentarColumna();
             return;
 
