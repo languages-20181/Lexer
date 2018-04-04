@@ -214,7 +214,7 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-       // System.out.println("Entro a Seleccionar Token: " + substring);
+       System.out.println("Entro a Seleccionar Token: " + substring);
 
 
         if (esCadena(substring)) {
@@ -294,8 +294,10 @@ public class AnalizadorLexico {
 		 */
         try
         {
-            Double.parseDouble(substring);
-            return true;
+            Double numero= Double.parseDouble(substring);
+            if (numero % 1 == 0)  return false;
+            else return true;
+
         }
         catch(NumberFormatException nfe)
         {
@@ -305,11 +307,16 @@ public class AnalizadorLexico {
     }
 
     private static boolean esEntero(String substring) {
-
+        /* TODO Numero
+         * Debe manejar errores
+         * Diferenciar entre doubles y enteros
+         */
         try
         {
-            Integer.parseInt(substring);
-            return true;
+            int numero= Integer.parseInt(substring);
+            if (numero % 1 == 0)  return true;
+            else return false;
+
         }
         catch(NumberFormatException nfe)
         {
@@ -317,6 +324,8 @@ public class AnalizadorLexico {
         }
 
     }
+
+
 
     public static String esIdentificador(String substring) {
 
