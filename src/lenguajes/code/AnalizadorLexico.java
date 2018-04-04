@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AnalizadorLexico {
@@ -13,11 +14,12 @@ public class AnalizadorLexico {
 
         operadoresEspeciales= new HashMap<String,String>();
         operadoresEspecialesDobles= new HashMap<String,String>();
+        palabraReservada = new ArrayList<String>();
         columna = 0;
         fila = 0;
 
         iniciarOperadoresEspeciales();
-		/*
+        iniciarPalabaraReservada();
 		try {
 			System.out.println(entrada(archivoEntrada));
 		} catch (FileNotFoundException e) {
@@ -32,7 +34,6 @@ public class AnalizadorLexico {
 
 			e.printStackTrace();
 		}
-		*/
     }
 
     public void iniciarOperadoresEspeciales() {
@@ -63,6 +64,23 @@ public class AnalizadorLexico {
         operadoresEspecialesDobles.put("&&","token_and");
         operadoresEspecialesDobles.put("||","token_or");
         operadoresEspecialesDobles.put("==","token_igual_num");
+
+    }
+
+    public void iniciarPalabaraReservada() {
+        palabraReservada.add("log");
+        palabraReservada.add("true");
+        palabraReservada.add("false");
+        palabraReservada.add("while");
+        palabraReservada.add("importar");
+        palabraReservada.add("log");
+        palabraReservada.add("if");
+        palabraReservada.add("for");
+        palabraReservada.add("funcion");
+        palabraReservada.add("retorno");
+        palabraReservada.add("end");
+        palabraReservada.add("else");
+
 
     }
 
@@ -196,11 +214,18 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-        if (esIdentificador(substring)) {
+    /*    System.out.println(substring);
+        System.out.println(esCadena(substring));*/
 
-			/*TODO Imprimir token
-			 * 	   Aumentar Columna
-			*/
+
+
+        if (esIdentificador(substring)== "id") {
+            imprimirSalida("token_id");
+            aumentarColumna();
+            return;
+            /*TODO Imprimir token
+             * 	   Aumentar Columna
+             */
 
         } else if (esNumero(substring)) {
 
@@ -208,12 +233,12 @@ public class AnalizadorLexico {
 			 * 	   Aumentar Columna
 			*/
 
-        } else if (esCadena(substring)) {
-
+        }  else if (esCadena(substring)) {
 			/*	   Imprimir token
 			 * 	   Aumentar Columna
 			 * 	   Se refiere a cadenas como "hola"
 			*/
+
         	
         	imprimirSalida("token_string");
         	aumentarColumna();
@@ -229,7 +254,12 @@ public class AnalizadorLexico {
 			aumentarColumna();
 			 return;
 
-        }else {
+        }  else if (esIdentificador(substring) != "id") {
+
+            imprimirSalida("token_" + esIdentificador(substring));
+            aumentarColumna();
+
+        } else {
     		
     		imprimirError();
             return;
@@ -253,8 +283,8 @@ public class AnalizadorLexico {
     	if (substring.startsWith("\"") && substring.endsWith("\""))
             return true;
     	
-    	else if (substring.charAt(0) != substring.charAt(substring.length()-1))
-    		imprimirError();
+    /*	else if (substring.charAt(0) != substring.charAt(substring.length()-1))
+    		imprimirError();*/
     	
         return false;
     }
@@ -275,13 +305,34 @@ public class AnalizadorLexico {
         return false;
     }
 
-    private static boolean esIdentificador(String substring) {
-		/*  TODO Auto-generated method stub
-		 *  Debe saber cuando es una palabra reservada y cuando es un identificador
-		 *  Manejo de errores
-		 */
-        return true;
+    public static String esIdentificador(String substring) {
+
+        String str = substring;
+        int i = 0;
+        while(i <str.length()) {
+            char t = str.charAt(i);
+            if (Character.isLetter(t)) {
+                String aux = "";
+                aux += t;
+                int j = i + 1;
+                while (Character.isLetterOrDigit(str.charAt(j))) {
+
+                    aux += str.charAt(j);
+                    j++;
+                    if (j == str.length()) break;
+                }
+                i = j;
+
+                if (palabraReservada.contains(aux)) return aux;
+
+
+                else return "id";
+            }
+        }
+
+        return "id";
     }
+
 
 
 
@@ -292,6 +343,7 @@ public class AnalizadorLexico {
 
     private static HashMap <String, String> operadoresEspecialesDobles;
     private static HashMap <String,String> operadoresEspeciales;
+    private static ArrayList <String> palabraReservada;
     private static int columna;
     private static int fila;
 }
