@@ -43,6 +43,7 @@ class AnalizadorLexicoTest {
 		assertEquals(false, AnalizadorLexico.esCadena("abc\""));
 		assertEquals(false, AnalizadorLexico.esCadena("\"abc"));
 		assertEquals(false, AnalizadorLexico.esCadena("abc"));
+        assertEquals(false, AnalizadorLexico.esCadena("\""));
 	}
 
 
@@ -83,5 +84,6 @@ class AnalizadorLexicoTest {
         assertEquals("id", AnalizadorLexico.esIdentificador("f4544aA"));
         assertEquals("0", AnalizadorLexico.esIdentificador("1d_auth_ms"));
         assertEquals("0", AnalizadorLexico.esIdentificador("abc#fbi"));
+        assertEquals("0",AnalizadorLexico.esIdentificador(""));
     }
 }

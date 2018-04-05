@@ -107,7 +107,7 @@ public class AnalizadorLexico {
 
         }
 
-        return "exitoso";
+        return "Successful!!";
     }
 
 
@@ -143,7 +143,7 @@ public class AnalizadorLexico {
         cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
 
         if (!cadenaAEvaluar.isEmpty())
-            seleccionarToken(cadenaAEvaluar);
+            seleccionarToken(new String[]{cadenaAEvaluar,""});
         return cadenaAEvaluar;
 
 
@@ -175,7 +175,7 @@ public class AnalizadorLexico {
 
             while (!queueAux.isEmpty()){
                 String aux = queueAux.poll();
-                seleccionarToken(aux);
+                seleccionarToken(new String[]{aux,""});
                 cuenta += aux.length();
             }
 
@@ -191,10 +191,14 @@ public class AnalizadorLexico {
 
         }
 
-
+        String raw = cadenaAEvaluar;
         cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+",""); //Removes spaces
+
         if (!cadenaAEvaluar.isEmpty())
-            seleccionarToken(cadenaAEvaluar);
+            if (esCadena(cadenaAEvaluar))
+                seleccionarToken(new String[]{raw,""});
+            else
+                seleccionarToken(new String[]{cadenaAEvaluar,""});
 
         indiceInicial = indiceInicial + i + aumento;
         imprimirOperadorEspecial(caracterActual);
@@ -242,52 +246,90 @@ public class AnalizadorLexico {
         fila++;
     }
 
-    private static void seleccionarToken(String substring) {
+    private static String[] seleccionarToken(String[] substring) {
 
-        // System.out.println("Entro a Seleccionar Token: " + substring);
+        String token = substring[0];
 
+        String identificador = esIdentificador(token);
 
-        if (esCadena(substring)) {
-            imprimirSalida("token_cadena");
+        if (esCadena(token)) {
+            imprimirSalida("token_cadena,"+token);
             aumentarColumna();
-            return;
-        } else if (esDecimal(substring)) {
+            if (substring[1].length() > 0) {
+                aumentarColumna();
+                imprimirError();
+            }
 
-            imprimirSalida("token_Double");
+            return new String[] {token,substring[1]};
+        } else if (esDecimal(token)) {
+
+            imprimirSalida("token_double,"+token);
             aumentarColumna();
-            return;
+            if (substring[1].length() > 0) {
+                aumentarColumna();
+                imprimirError();
+            }
+            return new String[] {token,substring[1]};
 
-        } else if(esEntero(substring)){
+        } else if(esEntero(token)){
 
-            imprimirSalida("token_Int");
+            imprimirSalida("token_int,"+token);
             aumentarColumna();
-            return;
-        } else if (esComentario(substring)) {
+            if (substring[1].length() > 0) {
+                aumentarColumna();
+                imprimirError();
+            }
+            return new String[] {token,substring[1]};
+        } else if (esComentario(token)) {
 
             /*     Imprimir token
              *
              */
 
-            imprimirSalida("token_com");
+            imprimirSalida("token_com,"+token);
             aumentarColumna();
-            return;
+            if (substring[1].length() > 0) {
+                aumentarColumna();
+                imprimirError();
+            }
+            return new String[] {token,substring[1]};
 
-        } else if (esIdentificador(substring)== "id") {
-            imprimirSalida("id,"+substring);
+        } else if (identificador == "id") {
+            imprimirSalida("id,"+token);
             aumentarColumna();
-            return;
+            if (substring[1].length() > 0) {
+                aumentarColumna();
+                imprimirError();
+            }
+            return new String[] {token,substring[1]};
 
         }
-        else if (esIdentificador(substring) != "id") {
-            imprimirSalida(esIdentificador(substring)); //This function is being called twice
+        else if (identificador != "0") {
+            imprimirSalida(identificador);
             aumentarColumna();
-            return;
+            if (substring[1].length() > 0) {
+                aumentarColumna();
+                imprimirError();
+            }
+            return new String[] {token,substring[1]};
 
         } else {
 
-            imprimirError();
-            return;
+            if(token.length() >= 1) {
+                seleccionarToken(
+                        new String[]{
+                                token.substring(0, token.length() - 1),
+                                String.valueOf(token.charAt(token.length() - 1)).concat(substring[1])
+                        }
+                );
+            } else {
+                imprimirError();
+                return new String[] {"",substring[1]};
+            }
+
         }
+
+        return new String[] {token,substring[1]};
     }
 
     private static void imprimirSalida(String salida) {
@@ -299,7 +341,7 @@ public class AnalizadorLexico {
 
     public static boolean esCadena(String substring) {
 
-        if (substring.startsWith("\"") && substring.endsWith("\""))
+        if (substring.startsWith("\"") && substring.endsWith("\"") && substring.length() > 1)
             return true;
 
     /*  else if (substring.charAt(0) != substring.charAt(substring.length()-1))
@@ -354,6 +396,9 @@ public class AnalizadorLexico {
 
         String str = substring;
         int i = 0;
+
+        if(str.length() == 0) return "0";
+
         while(i <str.length()) {
             char t = str.charAt(i);
             if (Character.isLetter(t)) {
@@ -378,7 +423,7 @@ public class AnalizadorLexico {
                 if (palabraReservada.contains(aux)) return aux;
                 else return "id";
             } else {
-                return "0"; //This means that it's not a identifier nor a reserved word
+                return "0"; //This means that it's not an identifier nor a reserved word
             }
         }
 
