@@ -25,20 +25,20 @@ public class AnalizadorLexico {
 
         iniciarOperadoresEspeciales();
         iniciarPalabaraReservada();
-		try {
-			System.out.println(entrada(archivoEntrada));
-		} catch (FileNotFoundException e) {
+        try {
+            System.out.println(entrada(archivoEntrada));
+        } catch (FileNotFoundException e) {
 
-			// TODO Auto-generated catch block
+            // TODO Auto-generated catch block
 
-			e.printStackTrace();
+            e.printStackTrace();
 
-		} catch (IOException e) {
+        } catch (IOException e) {
 
-			// TODO Auto-generated catch block
+            // TODO Auto-generated catch block
 
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
     }
 
     public void iniciarOperadoresEspeciales() {
@@ -113,7 +113,7 @@ public class AnalizadorLexico {
 
 
     public static String manejadorTexto (String linea) {
-    	String cadenaAEvaluar = new String();
+        String cadenaAEvaluar = new String();
         int indiceInicial = 0;
 
         for (int i = 0; i < linea.length(); i++) {
@@ -143,7 +143,7 @@ public class AnalizadorLexico {
         cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
 
         if (!cadenaAEvaluar.isEmpty())
-        	seleccionarToken(cadenaAEvaluar);
+            seleccionarToken(cadenaAEvaluar);
         return cadenaAEvaluar;
 
 
@@ -194,7 +194,7 @@ public class AnalizadorLexico {
 
         cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+",""); //Removes spaces
         if (!cadenaAEvaluar.isEmpty())
-        	seleccionarToken(cadenaAEvaluar);
+            seleccionarToken(cadenaAEvaluar);
 
         indiceInicial = indiceInicial + i + aumento;
         imprimirOperadorEspecial(caracterActual);
@@ -224,8 +224,8 @@ public class AnalizadorLexico {
 
     private static void imprimirError() {
 
-    	System.out.println(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
-    	System.exit(0);
+        System.out.println(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
+        System.exit(0);
     }
 
     private static void aumentarColumna() {
@@ -244,7 +244,7 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-      // System.out.println("Entro a Seleccionar Token: " + substring);
+        // System.out.println("Entro a Seleccionar Token: " + substring);
 
 
         if (esCadena(substring)) {
@@ -264,7 +264,7 @@ public class AnalizadorLexico {
             return;
         } else if (esComentario(substring)) {
 
-            /*	   Imprimir token
+            /*     Imprimir token
              *
              */
 
@@ -290,20 +290,20 @@ public class AnalizadorLexico {
         }
     }
 
-	private static void imprimirSalida(String salida) {
-		 System.out.println("<" +
-				 salida +
-		        "," + Integer.toString(fila) +
-		        "," + Integer.toString(columna) +">");
-	}
+    private static void imprimirSalida(String salida) {
+        System.out.println("<" +
+                salida +
+                "," + Integer.toString(fila) +
+                "," + Integer.toString(columna) +">");
+    }
 
     public static boolean esCadena(String substring) {
 
         if (substring.startsWith("\"") && substring.endsWith("\""))
             return true;
 
-    /*	else if (substring.charAt(0) != substring.charAt(substring.length()-1))
-    		imprimirError();*/
+    /*  else if (substring.charAt(0) != substring.charAt(substring.length()-1))
+            imprimirError();*/
 
         return false;
     }
@@ -313,10 +313,10 @@ public class AnalizadorLexico {
         if (substring.startsWith("#"))
             return true;
 
-    	return false;
+        return false;
     }
 
-    private static boolean esDecimal(String substring) {
+    public static boolean esDecimal(String substring) {
 
         try
         {
@@ -332,7 +332,7 @@ public class AnalizadorLexico {
 
     }
 
-    private static boolean esEntero(String substring) {
+    public static boolean esEntero(String substring) {
 
         try
         {
@@ -364,7 +364,9 @@ public class AnalizadorLexico {
                 if ( str.length()==1) return "id";
 
 
-                while (Character.isLetterOrDigit(str.charAt(j))) {
+                while (true) {
+                    if(!Character.isLetterOrDigit(str.charAt(j)))
+                        return "0";
 
                     aux += str.charAt(j);
                     j++;
@@ -372,9 +374,11 @@ public class AnalizadorLexico {
                 }
                 i = j;
 
-                /* Should this be evaluated first for optimal performance? */ 
+                /* Should this be evaluated first for optimal performance? */
                 if (palabraReservada.contains(aux)) return aux;
                 else return "id";
+            } else {
+                return "0"; //This means that it's not a identifier nor a reserved word
             }
         }
 
