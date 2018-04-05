@@ -192,7 +192,7 @@ public class AnalizadorLexico {
         }
 
 
-        cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
+        cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+",""); //Removes spaces
         if (!cadenaAEvaluar.isEmpty())
         	seleccionarToken(cadenaAEvaluar);
 
@@ -279,7 +279,7 @@ public class AnalizadorLexico {
 
         }
         else if (esIdentificador(substring) != "id") {
-            imprimirSalida(esIdentificador(substring));
+            imprimirSalida(esIdentificador(substring)); //This function is being called twice
             aumentarColumna();
             return;
 
@@ -372,6 +372,7 @@ public class AnalizadorLexico {
                 }
                 i = j;
 
+                /* Should this be evaluated first for optimal performance? */ 
                 if (palabraReservada.contains(aux)) return aux;
                 else return "id";
             }
