@@ -2,10 +2,7 @@ package lenguajes.code;
 
 import com.sun.org.apache.xml.internal.utils.SystemIDResolver;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,7 +11,7 @@ import java.util.Queue;
 public class AnalizadorLexico {
 
 
-    public AnalizadorLexico(String archivoEntrada) {
+    public AnalizadorLexico(String archivoEntrada) throws IOException {
 
         operadoresEspeciales= new HashMap<String,String>();
         operadoresEspecialesDobles= new HashMap<String,String>();
@@ -22,6 +19,8 @@ public class AnalizadorLexico {
         queueAux = new LinkedList<>();
         columna = 0;
         fila = 0;
+        output = new File("output.txt");
+        writer = new BufferedWriter(new FileWriter(output));
 
         iniciarOperadoresEspeciales();
         iniciarPalabaraReservada();
@@ -107,12 +106,15 @@ public class AnalizadorLexico {
 
         }
 
+        writer.close();
         return "Successful!!";
     }
 
+    public static void filePrintLine(String line) throws IOException{
+        writer.write(line+'\n');
+    }
 
-
-    public static String manejadorTexto (String linea) {
+    public static String manejadorTexto (String linea) throws IOException {
         String cadenaAEvaluar = new String();
         int indiceInicial = 0;
 
@@ -161,7 +163,7 @@ public class AnalizadorLexico {
 
     }
 
-    private static int separarOperadorEspecial(String linea, int indiceInicial, int i, String caracterActual, int aumento) {
+    private static int separarOperadorEspecial(String linea, int indiceInicial, int i, String caracterActual, int aumento) throws IOException {
 
         String cadenaAEvaluar = linea.substring(indiceInicial,i);
         aumentarColumna();
@@ -207,18 +209,18 @@ public class AnalizadorLexico {
 
     }
 
-    private static void imprimirOperadorEspecial(String operadorEspecial) {
+    private static void imprimirOperadorEspecial(String operadorEspecial)  throws IOException{
 
         if (operadoresEspecialesDobles.containsKey(operadorEspecial)) {
 
-            System.out.println("<" +
+            filePrintLine("<" +
                     operadoresEspecialesDobles.get(operadorEspecial) +
                     "," + Integer.toString(fila) +
                     "," + Integer.toString(columna) +">");
 
         }else {
 
-            System.out.println("<" +
+            filePrintLine("<" +
                     operadoresEspeciales.get(operadorEspecial) +
                     "," + Integer.toString(fila) +
                     "," + Integer.toString(columna) +">");
@@ -226,10 +228,14 @@ public class AnalizadorLexico {
         }
     }
 
-    private static void imprimirError(boolean exit) {
+    private static void imprimirError(boolean exit) throws IOException {
 
-        System.out.println(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
-        if (exit) System.exit(0);
+        filePrintLine(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
+        if (exit)
+        {
+            writer.close();
+            System.exit(0);
+        }
     }
 
     private static void aumentarColumna() {
@@ -246,7 +252,7 @@ public class AnalizadorLexico {
         fila++;
     }
 
-    private static String[] manejarDeteccion(String substring) {
+    private static String[] manejarDeteccion(String substring) throws IOException {
         aumentarColumna();
         if (substring.length() > 0) {
             aumentarColumna();
@@ -257,7 +263,7 @@ public class AnalizadorLexico {
         return null;
     }
 
-    private static String[] seleccionarToken(String[] substring) {
+    private static String[] seleccionarToken(String[] substring) throws IOException{
 
         String token = substring[0];
 
@@ -281,7 +287,7 @@ public class AnalizadorLexico {
              *
              */
 
-            imprimirSalida("token_com,"+token);
+            //imprimirSalida("token_com,"+token);
             String[] newToken = manejarDeteccion(substring[1]);
             if (newToken != null) return newToken;
 
@@ -315,8 +321,8 @@ public class AnalizadorLexico {
         return new String[] {token,substring[1]};
     }
 
-    private static void imprimirSalida(String salida) {
-        System.out.println("<" +
+    private static void imprimirSalida(String salida) throws IOException {
+        filePrintLine("<" +
                 salida +
                 "," + Integer.toString(fila) +
                 "," + Integer.toString(columna) +">");
@@ -402,7 +408,7 @@ public class AnalizadorLexico {
                 }
                 i = j;
 
-                /* Should this be evaluated first for optimal performance? */
+                /* Should this be evaluated first for an optimal performance? */
                 if (palabraReservada.contains(aux)) return aux;
                 else return "id";
             } else {
@@ -412,14 +418,13 @@ public class AnalizadorLexico {
 
         return "id";
     }
-
-
-
-
+    
     private static HashMap <String, String> operadoresEspecialesDobles;
     private static HashMap <String,String> operadoresEspeciales;
     private static ArrayList <String> palabraReservada;
     private static Queue<String> queueAux;
     private static int columna;
     private static int fila;
+    private static File output;
+    private static BufferedWriter writer;
 }
