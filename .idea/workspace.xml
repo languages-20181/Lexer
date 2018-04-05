@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63daf00a-4082-4335-8783-34999463ad2c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lexer/lenguajes/code/AnalizadorLexico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lexer/lenguajes/code/AnalizadorLexico.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,10 +19,14 @@
       <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="167" column="6" selection-start-line="167" selection-start-column="6" selection-end-line="167" selection-end-column="6" />
+            <state relative-caret-position="795">
+              <caret line="344" column="12" selection-start-line="344" selection-start-column="12" selection-end-line="344" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#7514#7515#0" expanded="true" />
+                <element signature="e#7541#7542#0" expanded="true" />
+                <element signature="e#7636#7637#0" expanded="true" />
+                <element signature="e#7658#7659#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -46,11 +52,7 @@
       </file>
       <file leaf-file-name="prueba.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -58,6 +60,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>columna</find>
+      <find>seleccionar</find>
+      <find>separar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,12 +210,12 @@
       <updated>1522806960355</updated>
       <workItem from="1522806967543" duration="1816000" />
       <workItem from="1522842584270" duration="2683000" />
-      <workItem from="1522879783832" duration="3082000" />
+      <workItem from="1522879783832" duration="12426000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7581000" />
+    <option name="totallyTimeSpent" value="16925000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1600" height="872" extended-state="6" />
@@ -227,7 +231,7 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2410596" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19602649" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -260,6 +264,10 @@
           <caret line="314" column="66" lean-forward="true" selection-start-line="314" selection-start-column="66" selection-end-line="314" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7514#7515#0" expanded="true" />
+            <element signature="e#7541#7542#0" expanded="true" />
+            <element signature="e#7636#7637#0" expanded="true" />
+            <element signature="e#7658#7659#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -291,6 +299,10 @@
           <caret line="279" lean-forward="true" selection-start-line="279" selection-end-line="279" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7514#7515#0" expanded="true" />
+            <element signature="e#7541#7542#0" expanded="true" />
+            <element signature="e#7636#7637#0" expanded="true" />
+            <element signature="e#7658#7659#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -330,13 +342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/App.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -344,12 +349,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/lenguajes/code/prueba.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lenguajes/code/AnalizadorLexico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="167" column="6" selection-start-line="167" selection-start-column="6" selection-end-line="167" selection-end-column="6" />
+        <state relative-caret-position="795">
+          <caret line="344" column="12" selection-start-line="344" selection-start-column="12" selection-end-line="344" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7514#7515#0" expanded="true" />
+            <element signature="e#7541#7542#0" expanded="true" />
+            <element signature="e#7636#7637#0" expanded="true" />
+            <element signature="e#7658#7659#0" expanded="true" />
           </folding>
         </state>
       </provider>

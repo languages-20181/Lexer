@@ -1,11 +1,15 @@
 package lenguajes.code;
 
+import com.sun.org.apache.xml.internal.utils.SystemIDResolver;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class AnalizadorLexico {
 
@@ -15,6 +19,7 @@ public class AnalizadorLexico {
         operadoresEspeciales= new HashMap<String,String>();
         operadoresEspecialesDobles= new HashMap<String,String>();
         palabraReservada = new ArrayList<String>();
+        queueAux = new LinkedList<>();
         columna = 0;
         fila = 0;
 
@@ -81,7 +86,6 @@ public class AnalizadorLexico {
         palabraReservada.add("end");
         palabraReservada.add("else");
 
-
     }
 
 
@@ -111,22 +115,23 @@ public class AnalizadorLexico {
     public static String manejadorTexto (String linea) {
     	String cadenaAEvaluar = new String();
         int indiceInicial = 0;
-        
+
         for (int i = 0; i < linea.length(); i++) {
 
             char caracterActual = linea.charAt(i);
             String caracterDoble = iniciarCaracterDoble(linea, i, caracterActual);
             if (operadoresEspecialesDobles.containsKey(caracterDoble)) {
-            	
                 indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, caracterDoble, 2);
                 i++;
 
             }else if (operadoresEspeciales.containsKey("" + caracterActual )) {
-
                 indiceInicial = separarOperadorEspecial(linea, indiceInicial, i, "" +caracterActual, 1);
-
             }
+
+
         }
+        aumentarColumna();
+
         if(indiceInicial > linea.length()) {
             /*
             seleccionarToken(linea.substring(indiceInicial-1,linea.length()));
@@ -136,9 +141,12 @@ public class AnalizadorLexico {
         }
         cadenaAEvaluar = linea.substring(indiceInicial,linea.length());
         cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
+
         if (!cadenaAEvaluar.isEmpty())
         	seleccionarToken(cadenaAEvaluar);
         return cadenaAEvaluar;
+
+
     }
 
     private static String iniciarCaracterDoble(String linea, int i, char caracterActual) {
@@ -146,9 +154,7 @@ public class AnalizadorLexico {
         String caracterDoble = "" + caracterActual;
 
         if (i < linea.length() - 1) {
-
             caracterDoble ="" + caracterActual + linea.charAt(i+1);
-
         }
 
         return caracterDoble;
@@ -157,22 +163,48 @@ public class AnalizadorLexico {
 
     private static int separarOperadorEspecial(String linea, int indiceInicial, int i, String caracterActual, int aumento) {
 
-        aumentarColumna();
         String cadenaAEvaluar = linea.substring(indiceInicial,i);
+        aumentarColumna();
+
+        if(cadenaAEvaluar.contains(" ") && cadenaAEvaluar.contains("if") &&
+                !cadenaAEvaluar.startsWith("\"") && !cadenaAEvaluar.startsWith("#")){
+            String []  spl= cadenaAEvaluar.split(" ");
+
+            for(int m = 0; m < spl.length;m++) queueAux.add(spl[m]);
+            int cuenta= 0;
+
+            while (!queueAux.isEmpty()){
+                String aux = queueAux.poll();
+                seleccionarToken(aux);
+                cuenta += aux.length();
+            }
+
+            indiceInicial = indiceInicial + i+1 + aumento;
+            imprimirOperadorEspecial(caracterActual);
+            return indiceInicial;
+            /*
+            seleccionarToken(queueAux.poll());
+            seleccionarToken(queueAux.poll());
+            indiceInicial = indiceInicial + (i+1) + aumento;
+            imprimirOperadorEspecial(caracterActual);
+            return indiceInicial;*/
+
+        }
+
+
         cadenaAEvaluar = cadenaAEvaluar.replaceAll("\\s+","");
-        
         if (!cadenaAEvaluar.isEmpty())
         	seleccionarToken(cadenaAEvaluar);
-        
-        indiceInicial = indiceInicial + i + aumento;
 
+        indiceInicial = indiceInicial + i + aumento;
         imprimirOperadorEspecial(caracterActual);
-        
+
         return indiceInicial;
 
     }
 
     private static void imprimirOperadorEspecial(String operadorEspecial) {
+
         if (operadoresEspecialesDobles.containsKey(operadorEspecial)) {
 
             System.out.println("<" +
@@ -189,9 +221,9 @@ public class AnalizadorLexico {
 
         }
     }
-    
+
     private static void imprimirError() {
-    	
+
     	System.out.println(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
     	System.exit(0);
     }
@@ -203,9 +235,7 @@ public class AnalizadorLexico {
     }
 
     private void cambiarColumna(int i) {
-
         columna = 0;
-
     }
 
     private void aumentarFila() {
@@ -214,7 +244,7 @@ public class AnalizadorLexico {
 
     private static void seleccionarToken(String substring) {
 
-    /*   System.out.println("Entro a Seleccionar Token: " + substring);*/
+      // System.out.println("Entro a Seleccionar Token: " + substring);
 
 
         if (esCadena(substring)) {
@@ -235,7 +265,6 @@ public class AnalizadorLexico {
         } else if (esComentario(substring)) {
 
             /*	   Imprimir token
-
              *
              */
 
@@ -272,26 +301,23 @@ public class AnalizadorLexico {
 
         if (substring.startsWith("\"") && substring.endsWith("\""))
             return true;
-    	
+
     /*	else if (substring.charAt(0) != substring.charAt(substring.length()-1))
     		imprimirError();*/
-    	
+
         return false;
     }
 
     public static boolean esComentario(String substring) {
-    	
-        if (substring.startsWith("#")) 
+
+        if (substring.startsWith("#"))
             return true;
-        
+
     	return false;
     }
 
     private static boolean esDecimal(String substring) {
-		/* TODO Numero
-		 * Debe manejar errores
-		 * Diferenciar entre doubles y enteros
-		 */
+
         try
         {
             Double numero= Double.parseDouble(substring);
@@ -307,10 +333,7 @@ public class AnalizadorLexico {
     }
 
     private static boolean esEntero(String substring) {
-        /* TODO Numero
-         * Debe manejar errores
-         * Diferenciar entre doubles y enteros
-         */
+
         try
         {
             int numero= Integer.parseInt(substring);
@@ -318,10 +341,10 @@ public class AnalizadorLexico {
             else return false;
 
         }
-        catch(NumberFormatException nfe)
-        {
+        catch(NumberFormatException nfe) {
             return false;
         }
+
 
     }
 
@@ -363,6 +386,7 @@ public class AnalizadorLexico {
     private static HashMap <String, String> operadoresEspecialesDobles;
     private static HashMap <String,String> operadoresEspeciales;
     private static ArrayList <String> palabraReservada;
+    private static Queue<String> queueAux;
     private static int columna;
     private static int fila;
 }
