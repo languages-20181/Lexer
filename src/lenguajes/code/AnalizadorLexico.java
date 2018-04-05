@@ -226,10 +226,10 @@ public class AnalizadorLexico {
         }
     }
 
-    private static void imprimirError() {
+    private static void imprimirError(boolean exit) {
 
         System.out.println(">>> Error lexico (linea: " + Integer.toString(fila) + ", posicion: " + Integer.toString(columna) + ")");
-        System.exit(0);
+        if (exit) System.exit(0);
     }
 
     private static void aumentarColumna() {
@@ -246,6 +246,17 @@ public class AnalizadorLexico {
         fila++;
     }
 
+    private static String[] manejarDeteccion(String substring) {
+        aumentarColumna();
+        if (substring.length() > 0) {
+            aumentarColumna();
+            return seleccionarToken(new String[]{substring,""});
+            //imprimirError(false);
+            //return seleccionarToken(new String[]{substring[1],""});
+        }
+        return null;
+    }
+
     private static String[] seleccionarToken(String[] substring) {
 
         String token = substring[0];
@@ -254,32 +265,16 @@ public class AnalizadorLexico {
 
         if (esCadena(token)) {
             imprimirSalida("token_cadena,"+token);
-            aumentarColumna();
-            if (substring[1].length() > 0) {
-                aumentarColumna();
-                imprimirError();
-            }
-
-            return new String[] {token,substring[1]};
+            String[] newToken = manejarDeteccion(substring[1]);
+            if (newToken != null) return newToken;
         } else if (esDecimal(token)) {
-
             imprimirSalida("token_double,"+token);
-            aumentarColumna();
-            if (substring[1].length() > 0) {
-                aumentarColumna();
-                imprimirError();
-            }
-            return new String[] {token,substring[1]};
-
+            String[] newToken = manejarDeteccion(substring[1]);
+            if (newToken != null) return newToken;
         } else if(esEntero(token)){
-
             imprimirSalida("token_int,"+token);
-            aumentarColumna();
-            if (substring[1].length() > 0) {
-                aumentarColumna();
-                imprimirError();
-            }
-            return new String[] {token,substring[1]};
+            String[] newToken = manejarDeteccion(substring[1]);
+            if (newToken != null) return newToken;
         } else if (esComentario(token)) {
 
             /*     Imprimir token
@@ -287,31 +282,19 @@ public class AnalizadorLexico {
              */
 
             imprimirSalida("token_com,"+token);
-            aumentarColumna();
-            if (substring[1].length() > 0) {
-                aumentarColumna();
-                imprimirError();
-            }
-            return new String[] {token,substring[1]};
+            String[] newToken = manejarDeteccion(substring[1]);
+            if (newToken != null) return newToken;
 
         } else if (identificador == "id") {
             imprimirSalida("id,"+token);
-            aumentarColumna();
-            if (substring[1].length() > 0) {
-                aumentarColumna();
-                imprimirError();
-            }
-            return new String[] {token,substring[1]};
+            String[] newToken = manejarDeteccion(substring[1]);
+            if (newToken != null) return newToken;
 
         }
         else if (identificador != "0") {
             imprimirSalida(identificador);
-            aumentarColumna();
-            if (substring[1].length() > 0) {
-                aumentarColumna();
-                imprimirError();
-            }
-            return new String[] {token,substring[1]};
+            String[] newToken = manejarDeteccion(substring[1]);
+            if (newToken != null) return newToken;
 
         } else {
 
@@ -323,7 +306,7 @@ public class AnalizadorLexico {
                         }
                 );
             } else {
-                imprimirError();
+                imprimirError(true);
                 return new String[] {"",substring[1]};
             }
 
