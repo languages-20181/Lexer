@@ -61,6 +61,8 @@ public class AnalizadorLexico {
         operadoresEspeciales.put("/","token_div");
         operadoresEspeciales.put("%","token_mod");
         operadoresEspeciales.put("^","token_pot");
+        operadoresEspeciales.put(":", "token_colon");
+        operadoresEspeciales.put(",","token_comma");
 
         operadoresEspecialesDobles.put(">=","token_mayor_igual");
         operadoresEspecialesDobles.put("<=","token_menor_igual");
@@ -181,7 +183,7 @@ public class AnalizadorLexico {
                 cuenta += aux.length();
             }
 
-            indiceInicial = indiceInicial + i+1 + aumento;
+            indiceInicial =i + aumento;
             imprimirOperadorEspecial(caracterActual);
             return indiceInicial;
             /*
@@ -202,7 +204,7 @@ public class AnalizadorLexico {
             else
                 seleccionarToken(new String[]{cadenaAEvaluar,""});
 
-        indiceInicial = indiceInicial + i + aumento;
+        indiceInicial = i + aumento;
         imprimirOperadorEspecial(caracterActual);
 
         return indiceInicial;
@@ -213,6 +215,10 @@ public class AnalizadorLexico {
 
         if (operadoresEspecialesDobles.containsKey(operadorEspecial)) {
 
+            System.out.println("<" +
+                    operadoresEspecialesDobles.get(operadorEspecial) +
+                    "," + Integer.toString(fila) +
+                    "," + Integer.toString(columna) +">");
             filePrintLine("<" +
                     operadoresEspecialesDobles.get(operadorEspecial) +
                     "," + Integer.toString(fila) +
@@ -220,6 +226,10 @@ public class AnalizadorLexico {
 
         }else {
 
+            System.out.println("<" +
+                    operadoresEspeciales.get(operadorEspecial) +
+                    "," + Integer.toString(fila) +
+                    "," + Integer.toString(columna) +">");
             filePrintLine("<" +
                     operadoresEspeciales.get(operadorEspecial) +
                     "," + Integer.toString(fila) +
@@ -264,6 +274,8 @@ public class AnalizadorLexico {
     }
 
     private static String[] seleccionarToken(String[] substring) throws IOException{
+
+        System.out.println(substring[0]+" "+substring[1]);
 
         String token = substring[0];
 
@@ -418,7 +430,7 @@ public class AnalizadorLexico {
 
         return "id";
     }
-    
+
     private static HashMap <String, String> operadoresEspecialesDobles;
     private static HashMap <String,String> operadoresEspeciales;
     private static ArrayList <String> palabraReservada;
